@@ -28,17 +28,62 @@ object EulerWorksheet {
   	
   evenFibonacciSum                                //> res3: Int = 4613732
   
+  
+  // old problem3 tools not used:
+    def sieve(s: Stream[Long]): Stream[Long] =
+  	s.head #:: sieve(s.tail.filter(_ % s.head != 0))
+                                                  //> sieve: (s: Stream[Long])Stream[Long]
+  
+    //sieve(from(2L)).take(4).toList
+  
+  
   //problem #3
   
-  def sieve(s: Stream[Int]): Stream[Int] =
-  	s.head #:: sieve(s.tail.filter(_ % s.head != 0))
-                                                  //> sieve: (s: Stream[Int])Stream[Int]
+  def from(b : Long) : Stream[Long] =
+  	b #:: from(b+1)                           //> from: (b: Long)Stream[Long]
+  	  
+  def divides(dividend : Long, divisor : Long) =
+  	dividend % divisor == 0                   //> divides: (dividend: Long, divisor: Long)Boolean
   
-  sieve(Stream.from(2)).take(40).toList           //> res4: List[Int] = List(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 4
-                                                  //| 7, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131
-                                                  //| , 137, 139, 149, 151, 157, 163, 167, 173)
+  def prime(n : Long) =
+  	from(2).takeWhile(f => f < math.sqrt(n)).filter(p => divides(n,p)) == Stream.empty
+                                                  //> prime: (n: Long)Boolean
+  def factors(n : Long) : Stream[Long] =
+  	from(2).takeWhile(p => p < math.sqrt(n)).filter(p => divides(n,p))
+                                                  //> factors: (n: Long)Stream[Long]
+  def largestPrimeFac(n: Long) =
+  	factors(n).takeWhile(prime(_)).last       //> largestPrimeFac: (n: Long)Long
+    
+  //factors(13195).toList
+  //pFactors(13195).last
+  largestPrimeFac(600851475143L)                  //> res4: Long = 6857
   
-
+  /* same in Clojure
   
+  (defn divides?
+  "Does divisor divide dividend evenly?"
+  [dividend divisor]
+  (zero? (rem dividend divisor)))
+ 
+(defn factors
+  "Returns a sequence of all factors of p."
+  [p]
+  (filter #(divides? p %) (range 2 (Math/sqrt p))))
+ 
+(defn prime?
+  "Returns true if p is prime, false otherwise."
+  [p]
+  (empty? (factors p)))
+ 
+(defn largestPrimeFac
+  "Find the largest prime factor of a composite number."
+  [p]
+  (last (take-while prime? (factors p))))
+ 
+(largestPrimeFac 600851475143)
+  */
+  
+  
+  // problem #4
   
 }
