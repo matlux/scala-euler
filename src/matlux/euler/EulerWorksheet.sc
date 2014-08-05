@@ -105,4 +105,16 @@ object EulerWorksheet {
   	
   largestPalindrom(999)                           //> res7: Int = 906609
   
+  // problem #5
+  def problem5(low : Int, high : Int) = {
+  	val r = low.to(high)
+  	val res = for {
+  		n <- 1.to(300000000)
+  		if(r.takeWhile(d => n % d == 0).size == r.size)
+  	} yield(n)
+  	res.head
+  }                                               //> problem5: (low: Int, high: Int)Int
+  	
+  problem5(1,20)                                  //> res8: Int = 232792560
+  
 }
