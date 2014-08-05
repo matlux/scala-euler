@@ -85,5 +85,24 @@ object EulerWorksheet {
   
   
   // problem #4
+  def isPalindrom(n : Int) = {
+    val nstr = n.toString()
+  	nstr.reverse == nstr
+  }                                               //> isPalindrom: (n: Int)Boolean
+  
+  isPalindrom(4003)                               //> res5: Boolean = false
+  isPalindrom(4004)                               //> res6: Boolean = true
+  
+  def largestPalindrom(max : Int) = {
+  	val v = for {
+  		x <- 1.to(max)
+  		y <- 1.to(max)
+  		s = x * y
+  		if(isPalindrom(s))
+  	} yield(s)
+  	v.foldRight(0)((v,mx) => v max mx)
+  }                                               //> largestPalindrom: (max: Int)Int
+  	
+  largestPalindrom(999)                           //> res7: Int = 906609
   
 }
