@@ -115,6 +115,25 @@ object EulerWorksheet {
   	res.head
   }                                               //> problem5: (low: Int, high: Int)Int
   	
-  problem5(1,20)                                  //> res8: Int = 232792560
+  //problem5(1,10)
+  //problem5(1,20)
   
+  //problem6
+  
+  def sumOfSqrt(sx : List[Int]) =
+  	sx.map(n => n*n).sum                      //> sumOfSqrt: (sx: List[Int])Int
+  	
+  sumOfSqrt(1.to(10).toList)                      //> res8: Int = 385
+  
+  def sqrtOfSum(sx : List[Int]) = {
+  	val s = sx.sum
+  	s * s
+  }                                               //> sqrtOfSum: (sx: List[Int])Int
+  	
+  sqrtOfSum(1.to(10).toList)                      //> res9: Int = 3025
+  
+  def problem6() =
+  	sqrtOfSum(1.to(100).toList) - sumOfSqrt(1.to(100).toList)
+                                                  //> problem6: ()Int
+  problem6                                        //> res10: Int = 25164150
 }
